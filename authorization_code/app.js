@@ -7,21 +7,25 @@
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
 
-var express = require('express'); // Express web server framework
-var request = require('request'); // "Request" library
-var cors = require('cors');
-var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
+let express = require('express'); // Express web server framework
+let request = require('request'); // "Request" library
+let cors = require('cors');
+let querystring = require('querystring');
+let cookieParser = require('cookie-parser');
+let connect = require("connect");
+let appConnect = connect.createServer().use(connect.static('njtest/server.js'));
 
-var client_id = 'CLIENT_ID'; // Your client id
-var client_secret = 'CLIENT_SECRET'; // Your secret
-var redirect_uri = 'REDIRECT_URI'; // Your redirect uri
+let client_id = '16816dc28118429aad94cb9c64ee01c2'; 
+let client_secret = 'd34aa51bb8b6412a9a7dbd7eb776e585';
+let redirect_uri = 'http://localhost:8888/callback'; 
 
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
+
+/*
 var generateRandomString = function(length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -31,6 +35,7 @@ var generateRandomString = function(length) {
   }
   return text;
 };
+*/
 
 var stateKey = 'spotify_auth_state';
 
@@ -81,7 +86,8 @@ app.get('/callback', function(req, res) {
         grant_type: 'authorization_code'
       },
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')),
+        'Content-Type': 'application/json'
       },
       json: true
     };
@@ -125,7 +131,7 @@ app.get('/refresh_token', function(req, res) {
   var refresh_token = req.query.refresh_token;
   var authOptions = {
     url: 'https://accounts.spotify.com/api/token',
-    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))},
     form: {
       grant_type: 'refresh_token',
       refresh_token: refresh_token

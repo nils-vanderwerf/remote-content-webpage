@@ -1,14 +1,28 @@
 <html>
     <head>
         <title>My Music Preferences</title>
-        <link rel="stylesheet" href="styles.css">
-        <script src="script.js" defer></script>
+        <link rel="stylesheet" href="style.css" type="text/css">
+       <script src="getdata.js" type="text/javascript"></script>
+       <script src="script.js" type="text/javascript" defer></script>
+        
+        
     </head>
 
     <body>
-        <h1>My Spotify Music Preferences</h1>
-        <p>Web content goes here</p>
-        <p>Web content goes here</p>
-        <p>Web content goes here</p>
+      
+    <h2>Spotify Search</h2>
+
+    <form id='spotify-form'>
+      <input id='search' type='text' name='search'>
+      <input type='submit' name='submit'/>
+    </form>
+
+    <div id='spotify-container'>
+      <ul id='results-list'>
+
+      </ul>
+
+    </div>
+    
     </body>
 </html>
