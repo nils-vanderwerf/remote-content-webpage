@@ -1,0 +1,128 @@
+
+
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,500,900);
+
+body{
+  background-color: #333;
+  font-family: Lato, Helvetica, sans-serif;
+  color: #4EA5D9; 
+}
+
+h1 {
+    font-size: 36px;
+    margin-top: 90px;
+}
+
+h1, input {
+    color: #4EA5D9;
+    text-align: center;
+}
+
+h1, h2 {
+    font-weight: 900;
+}
+
+h2, h3, h4 {
+    color: #fff;
+}
+
+h3, h4, a {
+    font-weight: 400;
+}
+
+#container {
+    width: 1366px;
+    max-width: 95%;
+    margin: auto;
+}
+
+ul#results-list {
+    display: grid;
+    margin: auto;
+    padding: 0;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(400px, auto);
+    display: -ms-grid;
+    display: -webkit-grid;
+    display: -moz-grid;
+}
+
+#spotify-form {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 30px;
+    margin: auto;
+    width: 1366px;
+    max-width: 90%;
+    margin-bottom: 3rem;
+}
+
+ul#results-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: 500px;
+    gap: 10px;
+    width: 100%;
+    max-width: 100%;
+}
+
+  input{    
+    height: 90px;  
+    margin-top: 30px;
+    font-family: Lato;
+    font-size: 1.8em;    
+    background-color: transparent;
+    border: 3px solid #4EA5D9;    
+    outline: none;
+    color: #4EA5D9;
+    padding-left: 10px;  
+  }
+
+  input[type=submit] {
+    background-color:  #4EA5D9;
+    color: #fff;
+    font-weight: 900; 
+  }
+    label:focus{
+      top: -130px;
+      font-size: 1.2em;
+      transition: all .3s;
+      
+    }
+  
+  label{
+    display: block;
+    position: relative;
+    left: 10px;
+    top: -70px;
+    font-size: 1.8em;
+    cursor: text;
+    transition: all .3s;    
+  }
+
+ li.track {
+     list-style: none;
+    }
+
+li.track img {
+    max-width: 100%;;
+}
+
+@media all and (max-width: 1400px) {
+    ul#results-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media all and (max-width: 1080px) {
+    ul#results-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media all and (max-width: 768px) {
+    ul#results-list {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}

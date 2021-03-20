@@ -82,7 +82,8 @@ console.log(searchBtn);
     //Create a new track object and attach it to the list
     class Track {
         constructor(thisTrack) {
-            this.cover = thisTrack.album.images[0].url; //album cover
+            this.link = thisTrack.external_urls.spotify;
+            this.cover = thisTrack.album.images[1].url; //album cover, the 300px sized one
             this.track = thisTrack.name;
             this.artist = thisTrack.artists[0].name;
             this.album = thisTrack.album.name;
@@ -94,27 +95,33 @@ console.log(searchBtn);
             let trackContainer = document.createElement('li');
             trackContainer.classList.add('track');
             resultsList.appendChild(trackContainer);
+            
+            //make a link which opens externally for the spotify tracks
+            let thisLink = document.createElement('a')
+            thisLink.setAttribute('href', this.link); //Sets the link to open Spotify
+            thisLink.setAttribute('target', '_blank'); //opens in a new window
+            trackContainer.appendChild(thisLink);
 
             //Create and append album cover
             let thisCover = document.createElement('img')
             thisCover.setAttribute('src', this.cover); //Sets the source attribute for image, the image url returned from Spotify
             thisCover.setAttribute('alt', this.album); //Sets the alt attribute to the album name
-            trackContainer.appendChild(thisCover);
+            thisLink.appendChild(thisCover); //Puts album cover inside link elemnent so it opends when you click on it
 
             //Create and append track name
-            let thisTrackName = document.createElement('h2')
-            thisTrackName.innerHTML = this.track
-            trackContainer.appendChild(thisTrackName)
+            let trackNameElement = document.createElement('h2')
+            trackNameElement.innerHTML = this.track
+            trackContainer.appendChild(trackNameElement)
 
             //Create and append artist name
-            let thisArtistName = document.createElement('h3')
-            thisArtistName.innerHTML = this.artist
-            trackContainer.appendChild(thisArtistName)
+            let artistNameElement = document.createElement('h3')
+            artistNameElement.innerHTML = this.artist
+            trackContainer.appendChild(artistNameElement)
 
             //Create and append artist name
-            let thisAlbumName = document.createElement('h3')
-            thisAlbumName.innerHTML = thisTrack.artists[0].name
-            trackContainer.appendChild(thisAlbumName)
+            let albumNameElement = document.createElement('h3')
+            albumNameElement.innerHTML = this.album
+            trackContainer.appendChild(albumNameElement)
         }
 
     }
@@ -123,11 +130,10 @@ console.log(searchBtn);
 
         let eachTrack = results.tracks.items;
         console.log(eachTrack);
-        let trackObj = eachTrack.forEach(function(track) {
+        eachTrack.forEach(function(track) {
             let newTrack = new Track(track)
-            return newTrack.makeList();
+             newTrack.makeList();
         });
-        console.log(trackObj);
     }
 
 
