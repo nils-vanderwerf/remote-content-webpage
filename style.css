@@ -30,6 +30,13 @@ h3, h4, a {
     font-weight: 400;
 }
 
+h2 {
+    margin-bottom: 10px;
+}
+h3 {
+    margin: 0;
+    line-height: 1.5;
+}
 #container {
     width: 1366px;
     max-width: 95%;
