@@ -40,7 +40,7 @@ let questions = [
     'favourite children’s show?',
     'favourite toy as a child?',
     'opinion of the best age of your life?',
-    "favourite Christmas present you've ever received?",
+    "favourite Christmas present you\'ve ever received?",
     'favourite superhero?',
     'favourite video game?',
     'favourite quote?',
@@ -63,8 +63,6 @@ let questions = [
     'favourite baby boy name?',
     'favourite baby girl name?',
     'favourite celebrity?',
-    'favourite thing you’ve done in the last 24 hours?',
-    'favourite place to meet up with friends?',
     'favourite hobby?',
     'favourite way to cheer you up?',
     'favourite hobby?',
@@ -76,10 +74,9 @@ let questions = [
     'solution to climate change'
     ]
 
-    let freshQuestions = questions.slice();
+let freshQuestions = questions.slice();
 
 function generateRandomQuestion() {
-    console.log('clicked');
     //pick a random value from the array of fresh questions
     let random = Math.floor(Math.random() * freshQuestions.length);
     
@@ -89,6 +86,10 @@ function generateRandomQuestion() {
     //remove it so its not chosen again
     freshQuestions.splice(random, 1)
 
+    //If we run out of questions, reset it to the original array
+    if (freshQuestions.length === 0) {
+        freshQuestions = questions;
+    }
     return thisElement
 }
 
@@ -101,13 +102,19 @@ function setInputText() {
 }
   
 let searchBtn = document.getElementById('spotify-form')
+let searchField = document.getElementById('search')
+
+searchField.addEventListener('focus', function() {
+    document.getElementById('search').value  = ""
+})
 
 searchBtn.addEventListener('submit', function(event){
     event.preventDefault();
     document.getElementById("results-list").innerHTML = ""; //Remove all previous values before loading new ones
     let searchVal = document.getElementById('search').value;
     searchQuery(searchVal, accessToken);
-    document.getElementById('search').value = `What is your ${generateRandomQuestion()}`
+    document.getElementById('search').value = ''
+    document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`) = 
     document.getElementById('search').style.color = '#fff'
 });
 
@@ -115,18 +122,14 @@ searchBtn.addEventListener('submit', function(event){
 function searchQuery(searchValue, token) {
 
     const form = document.getElementById('spotify-form');
-    console.log(form)
     //   const log = document.getElementById('log');
     //   form.addEventListener('submit', logSubmit);
 
     let searchBtn = document.getElementById('spotify-form');
-    console.log(searchBtn);
 
-    console.log(token);
     if (token != undefined) {
         //replace spaces with + signs as thats what url accepts for string
         let concatString = searchValue.split(' ').join('+');
-        console.log(searchValue, concatString);
         fetch(`https://api.spotify.com/v1/search?q=${searchValue}&offset=0&limit=20&type=track`, {
             headers: {
             'Accept': 'application/json',
@@ -140,13 +143,50 @@ function searchQuery(searchValue, token) {
         .then(data => {
             //Use returned list to populate a ul
             console.log(data);
-            populateList(data)
-        })
+            
+ //Filter out duplicates i.e tracks with the same artist
+  //https://stackoverflow.com/questions/2218999/how-to-remove-all-duplicates-from-an-array-of-objects
+           const filteredData = filterDuplicates(data.tracks.items)
+
+    //Sort according to popularity
+  //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
+            const sortedData = filteredData.sort(sortByPopularity)
+            console.log(sortedData)
+            populateList(sortedData)
+            })
+
+
         .catch(error => {
             console.log(error);
         });
     }
 }
+
+function filterDuplicates(itemsArray) {
+    itemsArray = itemsArray.filter((item, index, self) =>
+    index === self.findIndex((i) => (
+        i.artists[0].name === item.artists[0].name
+    )
+)
+)
+return itemsArray;
+}
+
+function sortByPopularity(a, b) {
+    const itemA = a.popularity 
+    const itemB = b.popularity 
+
+    let comparison = 0;
+
+    if (itemA > itemB) {
+        comparison = 1
+    } else if (itemA < itemB) {
+        comparison = -1
+    }
+    return comparison * -1
+}
+
+
 
     //Create a new track object and attach it to the list
     class Track {
@@ -196,9 +236,8 @@ function searchQuery(searchValue, token) {
     }
 
     function populateList(results) {
-        let eachTrack = results.tracks.items;
-        console.log(eachTrack);
-        eachTrack.forEach(function(track) {
+        console.log(results);
+        results.forEach(track => {
             let newTrack = new Track(track)
              newTrack.makeList();
         });

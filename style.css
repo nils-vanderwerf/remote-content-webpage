@@ -49,7 +49,7 @@ ul#results-list {
     padding: 0;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    grid-auto-rows: minmax(400px, auto);
+    grid-auto-rows: minmax(500px, auto);
     display: -ms-grid;
     display: -webkit-grid;
     display: -moz-grid;
@@ -131,5 +131,9 @@ li.track img {
 @media all and (max-width: 768px) {
     ul#results-list {
         grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    #results-list li a, #results-list li h2, #results-list li h3 {
+        text-align: center;
     }
 }

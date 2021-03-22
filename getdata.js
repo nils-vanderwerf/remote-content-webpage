@@ -7,13 +7,13 @@
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
 
- var accessToken;
+var accessToken;
 var clientId = '16816dc28118429aad94cb9c64ee01c2'; // Your client id
- var clientSecret = 'd34aa51bb8b6412a9a7dbd7eb776e585'; // Your secret
- getToken();
+var clientSecret = 'd34aa51bb8b6412a9a7dbd7eb776e585'; // Your secret
  
- //Change to a post request
- function getToken() {
+//IFE which retrieves token
+let getToken = function(){
+    
      fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
@@ -28,10 +28,13 @@ var clientId = '16816dc28118429aad94cb9c64ee01c2'; // Your client id
     .then((data) => {
         JSON.stringify(data);
         accessToken = data.access_token;
-        console.log(accessToken)
+
     })
     .catch((error) => {
         console.log(error);
+        let container = document.getElementById('spotify-container')
+        let errorMsg = document.createElement('p')
+        errorMsg.innerHTML('Error: unable to process results')
+        container.appendChild(errorMsg);
     })
-    }
- 
+    }();
