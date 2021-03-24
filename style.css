@@ -1,23 +1,16 @@
-
-
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,500,900);
 
 body{
-  background-color: #333;
-  font-family: Lato, Helvetica, sans-serif;
-  color: #4EA5D9; 
+    background-color: #333;
+    font-family: Lato, Helvetica, sans-serif;
+    color: #4EA5D9; 
 }
 
 h1 {
     font-size: 36px;
-    margin-top: 90px;
-}
-
-h1, input {
-    color: #4EA5D9;
+    padding: 1em;
     text-align: center;
 }
-
 h1, h2 {
     font-weight: 900;
 }
@@ -31,12 +24,95 @@ h3, h4, a {
 }
 
 h2 {
-    margin-bottom: 10px;
+    margin-bottom: 0.75em;
 }
 h3 {
     margin: 0;
     line-height: 1.5;
 }
+
+
+#container {
+    max-width: 75em;
+    width: 95%;
+    margin: auto;
+}
+
+#spotify-form {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 2em;
+    width: 100%;
+    margin-bottom: 5em;
+
+}
+
+#results-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(auto, 1fr));
+    grid-column-gap: 1em;
+    grid-row-gap: 6em;
+
+}
+
+li.track {
+    display: grid;
+    grid-row-gap: 3em; /*gap between track information and audio player*/
+    grid-template-rows: auto minmax(54px auto); /*main track content to take up as much height as it needs, 2nd row is for the button*/ 
+}
+
+input{    
+    height: 3em;  
+    margin-top: 30px;
+    font-family: Lato;
+    font-size: 1.8em;    
+    background-color: transparent;
+    border: 3px solid #4EA5D9;    
+    outline: none;
+    text-align: center;
+    color: #4EA5D9; 
+  }
+
+  input[type=submit] {
+    background-color:  #4EA5D9;
+    color: #fff;
+    font-weight: 900; 
+  }
+
+  @media all and (max-width: 1400px) {
+    #results-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+  @media all and (max-width: 1080px) {
+    #results-list {
+        grid-template-columns: repeat(2, 1fr);
+        margin: auto;
+    }
+
+    input {
+        font-size: 18pt;
+    }
+}
+  @media all and (max-width: 480px) {
+    #results-list {
+            grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* 
+
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,500,900);
+
+
+
+
+
+
+
+
+
 #container {
     width: 1366px;
     max-width: 95%;
@@ -49,7 +125,7 @@ ul#results-list {
     padding: 0;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    grid-auto-rows: minmax(500px, auto);
+    grid-auto-rows: minmax(600px, auto);
     display: -ms-grid;
     display: -webkit-grid;
     display: -moz-grid;
@@ -68,8 +144,7 @@ ul#results-list {
 ul#results-list {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-rows: 500px;
-    gap: 10px;
+    grid-template-rows: [inner-div] 500px auto [sample] 100px
     width: 100%;
     max-width: 100%;
 }
@@ -91,12 +166,7 @@ ul#results-list {
     color: #fff;
     font-weight: 900; 
   }
-    label:focus{
-      top: -130px;
-      font-size: 1.2em;
-      transition: all .3s;
-      
-    }
+
   
   label{
     display: block;
@@ -116,6 +186,11 @@ li.track img {
     max-width: 100%;;
 }
 
+audio {
+    margin: 60px 0;
+}
+
+
 @media all and (max-width: 1400px) {
     ul#results-list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -125,6 +200,10 @@ li.track img {
 @media all and (max-width: 1080px) {
     ul#results-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    input {
+        font-size: 18pt;
     }
 }
 
@@ -136,4 +215,4 @@ li.track img {
     #results-list li a, #results-list li h2, #results-list li h3 {
         text-align: center;
     }
-}
+} */

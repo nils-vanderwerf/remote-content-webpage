@@ -12,7 +12,7 @@ let questions = [
     'favourite coffee order?',
     'favourite cartoon cat?',
     'favourite movie?',
-    'favourite country you’ve visited?',
+    'favourite country you\’ve visited?',
     'country you most want to visit?',
     'favourite place to go with family?',
     'favourite vacation you’ve taken?',
@@ -72,23 +72,25 @@ let questions = [
     'favourite musical',
     'recommended way to solve a dispute',
     'solution to climate change'
-    ]
+]
 
-let freshQuestions = questions.slice();
+//Global variable, otherwise it resets each time generateRandom question is called
+let freshQuestions = questions.slice(); 
 
 function generateRandomQuestion() {
+    
     //pick a random value from the array of fresh questions
     let random = Math.floor(Math.random() * freshQuestions.length);
-    
+
     //capture the random element chosen
     let thisElement = freshQuestions[random];
-
+    console.log(freshQuestions, random, thisElement)
     //remove it so its not chosen again
     freshQuestions.splice(random, 1)
 
     //If we run out of questions, reset it to the original array
     if (freshQuestions.length === 0) {
-        freshQuestions = questions;
+        freshQuestions = questions.slice();
     }
     return thisElement
 }
@@ -97,26 +99,6 @@ document.addEventListener('DOMContentLoaded', function(){
     setInputText();
 })
 
-function setInputText() {
-    let inputText = document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`);
-}
-  
-let searchBtn = document.getElementById('spotify-form')
-let searchField = document.getElementById('search')
-
-searchField.addEventListener('focus', function() {
-    document.getElementById('search').value  = ""
-})
-
-searchBtn.addEventListener('submit', function(event){
-    event.preventDefault();
-    document.getElementById("results-list").innerHTML = ""; //Remove all previous values before loading new ones
-    let searchVal = document.getElementById('search').value;
-    searchQuery(searchVal, accessToken);
-    document.getElementById('search').value = ''
-    document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`) = 
-    document.getElementById('search').style.color = '#fff'
-});
 
 //Using access token in getdata.js
 function searchQuery(searchValue, token) {
@@ -140,18 +122,16 @@ function searchQuery(searchValue, token) {
         .then(response => {
             return response.json()
         })
-        .then(data => {
-            //Use returned list to populate a ul
+        .then(data => {  
+            //change to a function for filterDuplicates, sortData
             console.log(data);
-            
- //Filter out duplicates i.e tracks with the same artist
-  //https://stackoverflow.com/questions/2218999/how-to-remove-all-duplicates-from-an-array-of-objects
+            //Filter out duplicates i.e tracks with the same artist
+            //https://stackoverflow.com/questions/2218999/how-to-remove-all-duplicates-from-an-array-of-objects
            const filteredData = filterDuplicates(data.tracks.items)
 
-    //Sort according to popularity
-  //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
+            //Sort according to popularity
+            //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
             const sortedData = filteredData.sort(sortByPopularity)
-            console.log(sortedData)
             populateList(sortedData)
             })
 
@@ -162,16 +142,38 @@ function searchQuery(searchValue, token) {
     }
 }
 
+function setInputText() {
+    let inputText = document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`);
+}
+  
+let searchBtn = document.getElementById('spotify-form')
+let searchField = document.getElementById('search')
+
+searchField.addEventListener('focus', function() {
+    document.getElementById('search').value  = ""
+})
+
+searchBtn.addEventListener('submit', function(event){
+    event.preventDefault();
+    document.getElementById("results-list").innerHTML = ""; //Remove all previous values before loading new ones
+    let searchVal = document.getElementById('search').value;
+    searchQuery(searchVal, accessToken);
+    document.getElementById('search').value = ''
+    document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`)
+});
+
+
 function filterDuplicates(itemsArray) {
     itemsArray = itemsArray.filter((item, index, self) =>
     index === self.findIndex((i) => (
-        i.artists[0].name === item.artists[0].name
+        i.artists[0].name === item.artists[0].name && i.name === item.name
     )
 )
 )
 return itemsArray;
 }
 
+    //Sorts from popularity number to lowest
 function sortByPopularity(a, b) {
     const itemA = a.popularity 
     const itemB = b.popularity 
@@ -183,6 +185,7 @@ function sortByPopularity(a, b) {
     } else if (itemA < itemB) {
         comparison = -1
     }
+    //Highest popularity number to lowest
     return comparison * -1
 }
 
@@ -196,49 +199,94 @@ function sortByPopularity(a, b) {
             this.track = thisTrack.name;
             this.artist = thisTrack.artists[0].name;
             this.album = thisTrack.album.name;
+            this.audio = thisTrack.preview_url
         }
-
         makeList() {
-            //Create an li for each track and append it to the ul 
+            //Create an li for each track and append it to the ul
+            
             let resultsList = document.getElementById('results-list')
             let trackContainer = document.createElement('li');
             trackContainer.classList.add('track');
             resultsList.appendChild(trackContainer);
-            
-            //make a link which opens externally for the spotify tracks
-            let thisLink = document.createElement('a')
-            thisLink.setAttribute('href', this.link); //Sets the link to open Spotify
-            thisLink.setAttribute('target', '_blank'); //opens in a new window
-            trackContainer.appendChild(thisLink);
 
+            //Div container which houses album cover, title(h2), artist (h3) and album name (h3)
+            let innerDiv = document.createElement('div');
+            innerDiv.classList.add('inner-div');
+            trackContainer.appendChild(innerDiv)
+            
             //Create and append album cover
-            let thisCover = document.createElement('img')
-            thisCover.setAttribute('src', this.cover); //Sets the source attribute for image, the image url returned from Spotify
-            thisCover.setAttribute('alt', this.album); //Sets the alt attribute to the album name
-            thisLink.appendChild(thisCover); //Puts album cover inside link elemnent so it opends when you click on it
+            //Put the album cover inside the link
+            attachAlbumCover(this.album, this.link, this.cover, innerDiv)
 
             //Create and append track name
-            let trackNameElement = document.createElement('h2')
-            trackNameElement.innerHTML = this.track
-            trackContainer.appendChild(trackNameElement)
+            attachTrack(this.track, innerDiv)
 
             //Create and append artist name
-            let artistNameElement = document.createElement('h3')
-            artistNameElement.innerHTML = this.artist
-            trackContainer.appendChild(artistNameElement)
+            attachArtist(this.artist, innerDiv)
 
             //Create and append artist name
-            let albumNameElement = document.createElement('h3')
-            albumNameElement.innerHTML = this.album
-            trackContainer.appendChild(albumNameElement)
+            attachAlbumName(this.album, innerDiv)
+
+            //create an audio tag
+            attachAudioSample(this.audio, trackContainer)
         }
 
     }
 
-    function populateList(results) {
-        console.log(results);
-        results.forEach(track => {
-            let newTrack = new Track(track)
-             newTrack.makeList();
-        });
+    //attaching the link and album cover is in same function, as the album cover requires the link
+    function attachAlbumCover(album, link, cover, container) {
+        let thisLink = document.createElement('a')
+        let thisCover = document.createElement('img')
+        
+        thisLink.setAttribute('href', link); //Sets the link to open Spotify
+        thisLink.setAttribute('target', '_blank'); //opens in a new window
+        container.appendChild(thisLink); //Puts album cover inside link elemnent so it opends when you click on it
+
+        //Could put in new function? Would need to pass in this link, with attributes included
+        thisCover.setAttribute('src', cover); //Sets the source attribute for image, the image url returned from Spotify
+        thisCover.setAttribute('alt', album); //Sets the alt attribute to the album name
+        thisLink.appendChild(thisCover); 
+
     }
+
+    function attachTrack(track, container) {
+        let trackNameElement = document.createElement('h2')
+        trackNameElement.innerHTML = track
+        container.appendChild(trackNameElement)
+    }
+
+    function attachArtist(artist, container) {
+        let artistNameElement = document.createElement('h3')
+        artistNameElement.innerHTML = artist
+        container.appendChild(artistNameElement)
+    }
+
+    function attachAlbumName(album, container) {
+        let albumNameElement = document.createElement('h3')
+        albumNameElement.innerHTML = album
+        container.appendChild(albumNameElement)
+    }
+
+    function attachAudioSample(audio, container) {
+        if (audio !== null) {
+            let audioObject = new Audio(audio)
+            audioObject.setAttribute('type', `audio/mp3`)
+            audioObject.setAttribute('controlsList', 'nodownload')
+            audioObject.controls = true;
+            audioObject.classList.add('sample')
+            audioObject.volume = 0.6
+            container.appendChild(audioObject)
+        } else {
+            let noAudioMsg = document.createElement('p')
+            noAudioMsg.innerHTML = `<i>No audio preview available for this track.<br> Click on album cover above to hear full track.</i>`
+            container.appendChild(noAudioMsg)
+        }
+    }
+
+function populateList(results) {
+    console.log(results);
+    results.forEach(track => {
+        let newTrack = new Track(track)
+            newTrack.makeList();
+    });
+}
