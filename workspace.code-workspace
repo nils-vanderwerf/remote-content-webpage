@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../Phase 1/js-principles-scope-lab"
 		}
 	],
 	"settings": {

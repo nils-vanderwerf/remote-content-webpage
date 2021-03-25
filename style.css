@@ -39,18 +39,39 @@ h3 {
 }
 
 #spotify-form {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-gap: 2em;
+    /*display: grid;
+    grid-template-columns: 3fr 1fr; 
+    grid-gap: 2em;*/
+    margin: auto;
     width: 100%;
     margin-bottom: 5em;
 
 }
 
+select {
+    width: 7em;
+}
+
+#search {
+    width: 70%;
+    margin-right: 2em;
+    margin-bottom: 1em;
+}
+
+#submit {
+    width: 25%;
+}
+
+label {
+    margin-right: 1em;
+}
+
+
+
 #results-list {
     display: grid;
     grid-template-columns: repeat(4, minmax(auto, 1fr));
-    grid-column-gap: 1em;
+    grid-column-gap: 2em;
     grid-row-gap: 6em;
 
 }
@@ -64,8 +85,7 @@ li.track {
 input{    
     height: 3em;  
     margin-top: 30px;
-    font-family: Lato;
-    font-size: 1.8em;    
+    font-family: Lato;  
     background-color: transparent;
     border: 3px solid #4EA5D9;    
     outline: none;
@@ -77,6 +97,10 @@ input{
     background-color:  #4EA5D9;
     color: #fff;
     font-weight: 900; 
+  }
+
+  label, input, select {
+      font-size: 28px;
   }
 
   @media all and (max-width: 1400px) {
@@ -91,7 +115,7 @@ input{
         margin: auto;
     }
 
-    input {
+    input, label, select {
         font-size: 18pt;
     }
 }
