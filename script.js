@@ -1,4 +1,36 @@
+let _accessToken;
+const _clientId = '16816dc28118429aad94cb9c64ee01c2'; // Your client id
+const _clientSecret = 'd34aa51bb8b6412a9a7dbd7eb776e585'; // Your secret
+ 
+//IFE which retrieves token
+let getToken = function(){
+    
+     fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/x-www-form-urlencoded', 
+            'Authorization' : 'Basic ' + btoa(_clientId + ':' + _clientSecret)
+        },
+        body: 'grant_type=client_credentials'
+    })
+    .then((response) => {
+        return response.json()
+    })
+    .then((data) => {
+        JSON.stringify(data);
+        _accessToken = data.access_token;
 
+    })
+    .catch((error) => {
+        console.log(error);
+        let container = document.getElementById('spotify-container')
+        let errorMsg = document.createElement('p')
+        errorMsg.innerHTML('Error: unable to process results')
+        container.appendChild(errorMsg);
+    })
+    }();
+
+console.log('Access token is', _accessToken)
 let questions = [
     'favourite cereal?',
     'favourite breakfast food?',
@@ -58,8 +90,8 @@ let questions = [
     'favourite day of the week?',
     'favourite holiday?',
     'favourite kind of house?',
-    'favourite baby boy name?',
-    'favourite baby girl name?',
+    'favourite boy\'s name?',
+    'favourite girl\'s name?',
     'favourite celebrity?',
     'favourite hobby?',
     'favourite way to cheer you up?',
@@ -85,7 +117,6 @@ sortBy.addEventListener('change', function(){
     sortByValue = document.getElementById('sortBy').value
         if (document.getElementById("results-list").innerHTML !== "") {
         if (sortByValue === 'relevance') {
-            console.log('Data baby ', sortedData)
             populateList(sortedData)
         }
         else if (sortByValue === 'popularity') {
@@ -139,8 +170,6 @@ function searchQuery(searchValue, token) {
             return response.json()
         })
         .then(data => {  
-           myData = data
-           console.log('My data is', myData)
             //change to a function for filterDuplicates, sortDatas
        
             //Filter out duplicates i.e tracks with the same artist
@@ -214,8 +243,9 @@ document.getElementById('search').value  = ""
 
 searchBtn.addEventListener('submit', function(event){
     event.preventDefault();
+    document.getElementById("results-list").innerHTML = ""; //Remove all previous values before loading new ones
     searchVal = document.getElementById('search').value;
-    searchQuery(searchVal, accessToken);
+    searchQuery(searchVal, _accessToken);
     document.getElementById('search').value = ''
     document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`)
 });
@@ -326,7 +356,6 @@ function attachAudioSample(audio, container) {
 
 function populateList(results) {
     console.log("function entered")
-    document.getElementById("results-list").innerHTML = ""; //Remove all previous values before loading new ones
     results.forEach(track => {
         let newTrack = new Track(track)
             newTrack.makeList();

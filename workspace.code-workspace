@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../Phase 1/js-principles-scope-lab"
+		},
+		{
+			"path": "../Phase 1/fewpjs-oo-initializing-instances"
 		}
 	],
 	"settings": {
