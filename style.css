@@ -50,18 +50,10 @@ p {
 
 }
 
-select {
-    width: 25%;
-}
-
 #search {
     width: 70%;
     margin-right: 2em;
     margin-bottom: 1em;
-}
-
-#submit {
-    width: 25%;
 }
 
 label {
@@ -111,14 +103,22 @@ input{
   label, input, select {
       font-size: 28px;
   }
+  #submit, #search {
+    width: 100%;
+}
 
-  @media all and (min-width: 400px) {
+select {
+    width: 90%;
+}
+  @media all and (min-width: 420px) {
     ul#results-list {
         grid-template-columns: repeat(12, 1fr); /*12 columns instead of 4 will help make the website responsive for smakller screen sizes, 12 is divisible by many different numbers */
     }
     li.track {
         grid-column: span 6;
     }
+
+ 
 }
 
 @media all and (min-width: 1080px) {
@@ -128,6 +128,10 @@ input{
 
     input, label, select {
         font-size: 18pt;
+    }
+
+    select, #submit {
+        width: 25%;
     }
 }
 
@@ -139,112 +143,3 @@ input{
 
 
   
-
-/* 
-
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,500,900);
-
-
-#container {
-    width: 1366px;
-    max-width: 95%;
-    margin: auto;
-}
-
-ul#results-list {
-    display: grid;
-    margin: auto;
-    padding: 0;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(600px, auto);
-    display: -ms-grid;
-    display: -webkit-grid;
-    display: -moz-grid;
-}
-
-#spotify-form {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    gap: 30px;
-    margin: auto;
-    width: 1366px;
-    max-width: 90%;
-    margin-bottom: 3rem;
-}
-
-ul#results-list {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-rows: [inner-div] 500px auto [sample] 100px
-    width: 100%;
-    max-width: 100%;
-}
-
-  input{    
-    height: 90px;  
-    margin-top: 30px;
-    font-family: Lato;
-    font-size: 1.8em;    
-    background-color: transparent;
-    border: 3px solid #4EA5D9;    
-    outline: none;
-    color: #4EA5D9;
-    padding-left: 10px;  
-  }
-
-  input[type=submit] {
-    background-color:  #4EA5D9;
-    color: #fff;
-    font-weight: 900; 
-  }
-
-  
-  label{
-    display: block;
-    position: relative;
-    left: 10px;
-    top: -70px;
-    font-size: 1.8em;
-    cursor: text;
-    transition: all .3s;    
-  }
-
- li.track {
-     list-style: none;
-    }
-
-li.track img {
-    max-width: 100%;;
-}
-
-audio {
-    margin: 60px 0;
-}
-
-
-@media all and (max-width: 1400px) {
-    ul#results-list {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media all and (max-width: 1080px) {
-    ul#results-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    input {
-        font-size: 18pt;
-    }
-}
-
-@media all and (max-width: 768px) {
-    ul#results-list {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
-
-    #results-list li a, #results-list li h2, #results-list li h3 {
-        text-align: center;
-    }
-} */

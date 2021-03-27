@@ -1,10 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "../Phase 1/fewpjs-getter-and-setter-methods"
+			"path": "."
 		},
 		{
-			"path": "."
+			"path": "../Phase 1/js-object-oriented-constructor-functions-lab"
+		},
+		{
+			"path": "../Phase 1/fewpjs-sending-data-with-fetch"
 		}
 	],
 	"settings": {
