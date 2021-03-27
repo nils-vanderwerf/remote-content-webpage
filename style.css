@@ -7,7 +7,7 @@ body{
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 2.25em;
     padding: 1em;
     text-align: center;
 }
@@ -31,10 +31,12 @@ h3 {
     line-height: 1.5;
 }
 
+p {
+    font-size: 20px;
+}
 
 #container {
-    max-width: 75em;
-    width: 95%;
+    max-width: 95vw;
     margin: auto;
 }
 
@@ -49,7 +51,7 @@ h3 {
 }
 
 select {
-    width: 7em;
+    width: 25%;
 }
 
 #search {
@@ -66,20 +68,27 @@ label {
     margin-right: 1em;
 }
 
-
+#sortBy {
+    margin-top: 1em;
+}
 
 #results-list {
     display: grid;
-    grid-template-columns: repeat(4, minmax(auto, 1fr));
-    grid-column-gap: 2em;
-    grid-row-gap: 6em;
+    grid-column-gap: 20px;
+    grid-row-gap: 60px;
+    grid-auto-rows: 1fr;
+    justify-content: center;
+    justify-items: left;
+    padding-left: 0;
+    width: 100%;
 
 }
 
 li.track {
     display: grid;
     grid-row-gap: 3em; /*gap between track information and audio player*/
-    grid-template-rows: auto minmax(54px auto); /*main track content to take up as much height as it needs, 2nd row is for the button*/ 
+    grid-auto-rows: 1fr auto;
+    grid-column: 1 / -1;
 }
 
 input{    
@@ -103,38 +112,37 @@ input{
       font-size: 28px;
   }
 
-  @media all and (max-width: 1400px) {
-    #results-list {
-        grid-template-columns: repeat(3, 1fr);
+  @media all and (min-width: 400px) {
+    ul#results-list {
+        grid-template-columns: repeat(12, 1fr); /*12 columns instead of 4 will help make the website responsive for smakller screen sizes, 12 is divisible by many different numbers */
+    }
+    li.track {
+        grid-column: span 6;
     }
 }
 
-  @media all and (max-width: 1080px) {
-    #results-list {
-        grid-template-columns: repeat(2, 1fr);
-        margin: auto;
+@media all and (min-width: 1080px) {
+    li.track {
+        grid-column: span 4;
     }
 
     input, label, select {
         font-size: 18pt;
     }
 }
-  @media all and (max-width: 480px) {
-    #results-list {
-            grid-template-columns: repeat(1, 1fr);
-    }
-}
+
+  @media all and (min-width: 1400px) {
+        li.track {
+            grid-column: span 3; 
+        }
+  }
+
+
+  
 
 /* 
 
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,500,900);
-
-
-
-
-
-
-
 
 
 #container {

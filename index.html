@@ -2,7 +2,10 @@
     <head>
         <title>My Music Preferences</title>
         <link rel="stylesheet" href="style.css" type="text/css">
-       <!-- <script src="getToken.js" type="text/javascript"></script> -->
+
+       <script src="questions.js" type="text/javascript"></script>
+       <script src="getToken.js" type="text/javascript"></script>
+       <script src="makeTrackList.js" type="text/javascript"></script>
        <script src="script.js" type="text/javascript" defer></script>
         
         
@@ -10,11 +13,12 @@
 
     <body>
       
-    <h1>Nils' Spotify Search App</h1>
+    <h1>Let's Play a Little Game With The Spotify API</h1>
     <div id="container">
       <form id='spotify-form'>
         <input id='search' type='text' name='search'>
         <input id="submit" type='submit' name='submit'/>
+        <br>
         <label for="sortBy">Sort By:</label>
           <select id="sortBy" name="sortBy">
             <option id ="relevance" value="relevance" selected>Relevance</option>

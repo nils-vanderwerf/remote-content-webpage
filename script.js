@@ -1,129 +1,30 @@
-let _accessToken;
-const _clientId = '16816dc28118429aad94cb9c64ee01c2'; // Your client id
-const _clientSecret = 'd34aa51bb8b6412a9a7dbd7eb776e585'; // Your secret
- 
-//IFE which retrieves token
-let getToken = function(){
-    
-     fetch('https://accounts.spotify.com/api/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/x-www-form-urlencoded', 
-            'Authorization' : 'Basic ' + btoa(_clientId + ':' + _clientSecret)
-        },
-        body: 'grant_type=client_credentials'
-    })
-    .then((response) => {
-        return response.json()
-    })
-    .then((data) => {
-        JSON.stringify(data);
-        _accessToken = data.access_token;
-
-    })
-    .catch((error) => {
-        console.log(error);
-        let container = document.getElementById('spotify-container')
-        let errorMsg = document.createElement('p')
-        errorMsg.innerHTML('Error: unable to process results')
-        container.appendChild(errorMsg);
-    })
-    }();
-
-console.log('Access token is', _accessToken)
-let questions = [
-    'favourite cereal?',
-    'favourite breakfast food?',
-    'favourite pizza topping/s?',
-    'favourite fruit?',
-    'favourite vegetable?',
-    'favourite dessert?',
-    'favourite food?',
-    'favourite cultural cuisine?',
-    'favourite cake?',
-    'favourite alcoholic drink?',
-    'favourite coffee order?',
-    'favourite cartoon cat?',
-    'favourite movie?',
-    'favourite country you’ve visited?',
-    'country you most want to visit?',
-    'favourite place to go with family?',
-    'favourite vacation you’ve taken?',
-    'favourite fictional place you’d want to visit?',
-    'favourite thing about traveling?',
-    'favourite dinosaur?',
-    'favourite breed of dog?',
-    'favourite season?',
-    'your favourite flower?',
-    'favourite animal?',
-    'favourite native animal?',
-    'animal that you wish was native to your country?',
-    'favourite type of bear?',
-    'favourite reptile?',
-    'your favourite bird?',
-    'favourite way to spend a rainy day?',
-    'favourite way to spend a sunny day?',
-    'favourite sea creature?',
-    'favourite small mammal?',
-    'favourite big cat?',
-    'favourite wild animal?',
-    'favourite sport?',
-    'favourite childhood memory?',
-    'favourite board game?',
-    'favourite children’s show?',
-    'favourite toy as a child?',
-    'opinion of the best age of your life?',
-    "favourite Christmas present you've ever received?",
-    'favourite superhero?',
-    'favourite video game?',
-    'favourite quote?',
-    'favourite place to shop?',
-    'favourite perfume/cologne?',
-    'favourite occasion to dress up for?',
-    'favourite hairstyle?',
-    'favourite outfit you have?',
-    'favourite soap scent?',
-    'favourite article of clothing?',
-    'favourite luxury brand?',
-    'favourite candle scent?',
-    'favourite extracurricular activity?',
-    'favourite day of the week?',
-    'favourite holiday?',
-    'favourite kind of house?',
-    'favourite boy\'s name?',
-    'favourite girl\'s name?',
-    'favourite celebrity?',
-    'favourite hobby?',
-    'favourite way to cheer you up?',
-    'favourite hobby?',
-    'favourite kind of gift to receive?',
-    'favourite crafty thing to make?',
-    'favourite way to relax?',
-    'favourite musical',
-    'recommended way to solve a dispute',
-    'solution to climate change'
-]
-
+console.log(_accessToken)
 //Global variable, otherwise it resets each time generateRandom question is called
 let freshQuestions = questions.slice(); 
 
 let searchVal; //needs to be a global variable so it can be accessed outside ofg event
 let sortedData;
 let sortByValue = document.getElementById('sortBy').value
-console.log('The value of sortBy is', sortByValue)
+
 let sortBy = document.getElementById('sortBy')
 
 sortBy.addEventListener('change', function(){
+
     sortByValue = document.getElementById('sortBy').value
-        if (document.getElementById("results-list").innerHTML !== "") {
+        document.getElementById("results-list").innerHTML = ""
         if (sortByValue === 'relevance') {
+            console.log('searchValue: ', searchVal)
+            console.log('sort by relevance:', sortByRelevance(sortedData, searchVal))
+            sortedData = sortByRelevance(sortedData, searchVal)
             populateList(sortedData)
         }
         else if (sortByValue === 'popularity') {
+            console.log('searchValue: ', searchVal)
+            console.log('sort by popularity:', sortedData.sort(sortByPopularity))
+            sortedData = sortedData.sort(sortByPopularity)
             populateList(sortedData)
         }
-    }
-})
+ })
 
 function generateRandomQuestion() {
     
@@ -148,71 +49,21 @@ document.addEventListener('DOMContentLoaded', function(){
 })
 
 
-//Using access token in getdata.js
-function searchQuery(searchValue, token) {
 
-    //   const log = document.getElementById('log');
-    //   form.addEventListener('submit', logSubmit);
-
-    let searchBtn = document.getElementById('spotify-form');
-
-    if (token != undefined) {
-        //replace spaces with + signs as thats what url accepts for string
-        let concatString = searchValue.split(' ').join('+');
-        fetch(`https://api.spotify.com/v1/search?q=${searchValue}&offset=0&limit=20&type=track`, {
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-            }
-            })
-        .then(response => {
-            return response.json()
-        })
-        .then(data => {  
-            //change to a function for filterDuplicates, sortDatas
-       
-            //Filter out duplicates i.e tracks with the same artist
-            //https://stackoverflow.com/questions/2218999/how-to-remove-all-duplicates-from-an-array-of-objects
-           const filteredData = filterDuplicates(data.tracks.items)
-           
-            
-            if (sortByValue === 'relevance') {
-                sortedData = sortByRelevance(data.tracks.items, searchValue)
-                populateList(sortedData);
-            } 
-
-            else if (sortByValue === 'popularity') {
-                sortedData = filteredData.sort(sortByPopularity)
-                populateList(sortedData)
-            }
-            //Sort according to popularity
-            //https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
-            // const sortedData = sortByRelevance(searchValue, data.tracks.items))
-            populateList(sortedData)
-            })
-
-        .catch(error => {
-            console.log(error);
-        });
-    }
-}
-
-//Sort according to popularity
-//https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
 function sortByPopularity(a, b) {
     const itemA = a.popularity 
     const itemB = b.popularity 
 
-    let comparison = 0;
+    return itemB - itemA
 
-    if (itemA > itemB) {
-        comparison = 1
-    } else if (itemA < itemB) {
-        comparison = -1
-    }
-    //Highest popularity number to lowest
-    return comparison * -1
+    // if (itemA > itemB) {
+    //     comparison = 1
+    // } else if (itemA < itemB) {
+    //     comparison = -1
+    // }
+    // //Highest popularity number to lowest
+    // console.log (comparison *-1)
+    // return comparison * -1
 }
 
 
@@ -245,7 +96,7 @@ searchBtn.addEventListener('submit', function(event){
     event.preventDefault();
     document.getElementById("results-list").innerHTML = ""; //Remove all previous values before loading new ones
     searchVal = document.getElementById('search').value;
-    searchQuery(searchVal, _accessToken);
+    searchQuery(searchVal, _accessToken); //fetch data
     document.getElementById('search').value = ''
     document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`)
 });
@@ -261,48 +112,6 @@ function filterDuplicates(itemsArray) {
 return itemsArray;
 }
 
-
-//Create a new track object and attach it to the list
-class Track {
-    constructor(thisTrack) {
-        this.link = thisTrack.external_urls.spotify;
-        this.cover = thisTrack.album.images[1].url; //album cover, the 300px sized one
-        this.track = thisTrack.name;
-        this.artist = thisTrack.artists[0].name;
-        this.album = thisTrack.album.name;
-        this.audio = thisTrack.preview_url
-    }
-    makeList() {
-        //Create an li for each track and append it to the ul
-        
-        let resultsList = document.getElementById('results-list')
-        let trackContainer = document.createElement('li');
-        trackContainer.classList.add('track');
-        resultsList.appendChild(trackContainer);
-
-        //Div container which houses album cover, title(h2), artist (h3) and album name (h3)
-        let innerDiv = document.createElement('div');
-        innerDiv.classList.add('inner-div');
-        trackContainer.appendChild(innerDiv)
-        
-        //Create and append album cover
-        //Put the album cover inside the link
-        attachAlbumCover(this.album, this.link, this.cover, innerDiv)
-
-        //Create and append track name
-        attachTrack(this.track, innerDiv)
-
-        //Create and append artist name
-        attachArtist(this.artist, innerDiv)
-
-        //Create and append artist name
-        attachAlbumName(this.album, innerDiv)
-
-        //create an audio tag
-        attachAudioSample(this.audio, trackContainer)
-    }
-
-}
 
 //attaching the link and album cover is in same function, as the album cover requires the link
 function attachAlbumCover(album, link, cover, container) {
@@ -355,7 +164,15 @@ function attachAudioSample(audio, container) {
 }
 
 function populateList(results) {
-    console.log("function entered")
+
+    if (results.length === 0) {
+        let container = document.getElementById('container')
+        let para = document.createElement('p');
+        let textNode = "No results for this search term"
+        para.innerHTML = textNode
+        container.appendChild(para)
+
+    }
     results.forEach(track => {
         let newTrack = new Track(track)
             newTrack.makeList();
