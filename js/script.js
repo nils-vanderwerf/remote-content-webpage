@@ -85,7 +85,6 @@ searchBtn.addEventListener('submit', function(event){
     searchQuery(searchVal, _accessToken); //fetch data
     let showingResults = document.querySelector('#showing-results p')
     showingResults.innerHTML = `Showing Results for <em>${searchVal}</em>`
-    showingResults.appendChild(showingResults)
 
     document.getElementById('search').value = ''
     
