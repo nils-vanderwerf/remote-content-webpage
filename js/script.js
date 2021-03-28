@@ -7,11 +7,9 @@ let sortBy = document.getElementById('sortBy')
 
 sortBy.addEventListener('change', function(){
     sortByValue = document.getElementById('sortBy').value
-    console.log(sortByValue)
     if (sortedData !== undefined) {
         document.getElementById("results-list").innerHTML = ""
         if (sortByValue === 'relevance') {
-          
             sortedData = sortByRelevance(sortedData, searchVal)
             populateList(sortedData)
         }
