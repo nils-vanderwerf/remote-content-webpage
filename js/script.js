@@ -12,13 +12,11 @@ sortBy.addEventListener('change', function(){
     sortByValue = document.getElementById('sortBy').value
         document.getElementById("results-list").innerHTML = ""
         if (sortByValue === 'relevance') {
-            console.log('searchValue: ', searchVal)
-            console.log('sort by relevance:', sortByRelevance(sortedData, searchVal))
+          
             sortedData = sortByRelevance(sortedData, searchVal)
             populateList(sortedData)
         }
         else if (sortByValue === 'popularity') {
-            console.log('sort by popularity:', sortedData.sort(sortByPopularity))
             sortedData = sortedData.sort(sortByPopularity)
             populateList(sortedData)
         }
@@ -57,8 +55,6 @@ function sortByPopularity(a, b) {
 
 
 function sortByRelevance(results, input) {
-    console.log(this)
-    console.log('Our results are ', results)
     return results.map(entry => {
     let points = 0;
     let thisTitle = entry.name
@@ -87,7 +83,7 @@ searchBtn.addEventListener('submit', function(event){
     searchVal = document.getElementById('search').value;
 
     searchQuery(searchVal, _accessToken); //fetch data
-    let showingResults = document.querySelector('showing-results p')
+    let showingResults = document.querySelector('#showing-results p')
     showingResults.innerHTML = `Showing Results for <em>${searchVal}</em>`
     showingResults.appendChild(showingResults)
 
