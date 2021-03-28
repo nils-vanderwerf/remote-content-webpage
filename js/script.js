@@ -1,15 +1,14 @@
-console.log(_accessToken)
 //Global variable, otherwise it resets each time generateRandom question is called
 let freshQuestions = questions.slice(); 
 
 let searchVal; //needs to be a global variable so it can be accessed outside of event
 let sortedData;
-let sortByValue = document.getElementById('sortBy').value
 let sortBy = document.getElementById('sortBy')
 
 sortBy.addEventListener('change', function(){
-
     sortByValue = document.getElementById('sortBy').value
+    console.log(sortByValue)
+    if (sortedData !== undefined) {
         document.getElementById("results-list").innerHTML = ""
         if (sortByValue === 'relevance') {
           
@@ -20,6 +19,7 @@ sortBy.addEventListener('change', function(){
             sortedData = sortedData.sort(sortByPopularity)
             populateList(sortedData)
         }
+    }
  })
 
 function generateRandomQuestion() {
