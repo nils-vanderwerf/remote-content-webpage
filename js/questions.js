@@ -65,14 +65,13 @@ let questions = [
     'favourite kind of house?',
     'favourite boy\'s name?',
     'favourite girl\'s name?',
-    'favourite celebrity?',
     'favourite hobby?',
     'favourite way to cheer you up?',
     'favourite hobby?',
     'favourite kind of gift to receive?',
     'favourite crafty thing to make?',
     'favourite way to relax?',
-    'favourite musical',
-    'recommended way to solve a dispute',
-    'solution to climate change'
+    'favourite musical?',
+    'recommended way to solve a dispute?',
+    'solution to climate change?'
 ]
