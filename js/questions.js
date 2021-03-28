@@ -43,7 +43,7 @@ let questions = [
     'favourite sport?',
     'favourite childhood memory?',
     'favourite board game?',
-    'favourite children’s show?',
+    'favourite children\’s show?',
     'favourite toy as a child?',
     'opinion of the best age of your life?',
     "favourite Christmas present you've ever received?",

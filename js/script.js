@@ -2,10 +2,9 @@ console.log(_accessToken)
 //Global variable, otherwise it resets each time generateRandom question is called
 let freshQuestions = questions.slice(); 
 
-let searchVal; //needs to be a global variable so it can be accessed outside ofg event
+let searchVal; //needs to be a global variable so it can be accessed outside of event
 let sortedData;
 let sortByValue = document.getElementById('sortBy').value
-
 let sortBy = document.getElementById('sortBy')
 
 sortBy.addEventListener('change', function(){
@@ -19,7 +18,6 @@ sortBy.addEventListener('change', function(){
             populateList(sortedData)
         }
         else if (sortByValue === 'popularity') {
-            console.log('searchValue: ', searchVal)
             console.log('sort by popularity:', sortedData.sort(sortByPopularity))
             sortedData = sortedData.sort(sortByPopularity)
             populateList(sortedData)
@@ -55,15 +53,6 @@ function sortByPopularity(a, b) {
     const itemB = b.popularity 
 
     return itemB - itemA
-
-    // if (itemA > itemB) {
-    //     comparison = 1
-    // } else if (itemA < itemB) {
-    //     comparison = -1
-    // }
-    // //Highest popularity number to lowest
-    // console.log (comparison *-1)
-    // return comparison * -1
 }
 
 
@@ -96,8 +85,15 @@ searchBtn.addEventListener('submit', function(event){
     event.preventDefault();
     document.getElementById("results-list").innerHTML = ""; //Remove all previous values before loading new ones
     searchVal = document.getElementById('search').value;
+
     searchQuery(searchVal, _accessToken); //fetch data
+    let showingResults = document.getElementById('showing-results')
+    let resultsPara = document.createElement('p')
+    resultsPara.innerHTML = `Showing Results for <em>${searchVal}</em></i>`
+    showingResults.appendChild(resultsPara)
+
     document.getElementById('search').value = ''
+    
     document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`)
 });
 
@@ -113,61 +109,16 @@ return itemsArray;
 }
 
 
-//attaching the link and album cover is in same function, as the album cover requires the link
-function attachAlbumCover(album, link, cover, container) {
-    let thisLink = document.createElement('a')
-    let thisCover = document.createElement('img')
-    
-    thisLink.setAttribute('href', link); //Sets the link to open Spotify
-    thisLink.setAttribute('target', '_blank'); //opens in a new window
-    container.appendChild(thisLink); //Puts album cover inside link elemnent so it opends when you click on it
-
-    //Could put in new function? Would need to pass in this link, with attributes included
-    thisCover.setAttribute('src', cover); //Sets the source attribute for image, the image url returned from Spotify
-    thisCover.setAttribute('alt', album); //Sets the alt attribute to the album name
-    thisLink.appendChild(thisCover); 
-
-}
-
-function attachTrack(track, container) {
-    let trackNameElement = document.createElement('h2')
-    trackNameElement.innerHTML = track
-    container.appendChild(trackNameElement)
-}
-
-function attachArtist(artist, container) {
-    let artistNameElement = document.createElement('h3')
-    artistNameElement.innerHTML = artist
-    container.appendChild(artistNameElement)
-}
-
-function attachAlbumName(album, container) {
-    let albumNameElement = document.createElement('h3')
-    albumNameElement.innerHTML = album
-    container.appendChild(albumNameElement)
-}
-
-function attachAudioSample(audio, container) {
-    if (audio !== null) {
-        let audioObject = new Audio(audio)
-        audioObject.setAttribute('type', `audio/mp3`)
-        audioObject.setAttribute('controlsList', 'nodownload')
-        audioObject.controls = true;
-        audioObject.classList.add('sample')
-        audioObject.volume = 0.6
-        container.appendChild(audioObject)
-    } else {
-        let noAudioMsg = document.createElement('p')
-        noAudioMsg.innerHTML = `<i>No audio preview available for this track.<br> Click on album cover above to hear full track.</i>`
-        container.appendChild(noAudioMsg)
-    }
-}
-
 function populateList(results) {
-
+    let container = document.getElementById('container')
+    let noResult = document.getElementById('no-result')
+    if (noResult !== null) {
+        noResult.remove()
+    }
     if (results.length === 0) {
-        let container = document.getElementById('container')
         let para = document.createElement('p');
+        para.id="no-result"
+        
         let textNode = "No results for this search term"
         para.innerHTML = textNode
         container.appendChild(para)
