@@ -62,7 +62,6 @@ let questions = [
     "favourite extracurricular activity?",
     "favourite day of the week?",
     "favourite holiday?",
-    "favourite kind of house?",
     "favourite boy's name?",
     "favourite girl's name?",
     "favourite hobby?",
