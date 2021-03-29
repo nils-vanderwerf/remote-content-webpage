@@ -1,4 +1,4 @@
-* AUTHETICATION *
+* AUTHENTICATION *
 
     Done in js/getData.js
     Register your application at https://developer.spotify.com/dashboard/login
