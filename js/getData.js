@@ -3,7 +3,7 @@ const _clientId = '16816dc28118429aad94cb9c64ee01c2'; // Your client id
 const _clientSecret = 'd34aa51bb8b6412a9a7dbd7eb776e585'; // Your secret
 let sortByValue
 
-//IIFE which retrieves token
+//IIFE which retrieves access token
 let getToken = function(){
     
      fetch('https://accounts.spotify.com/api/token', {
@@ -31,11 +31,8 @@ let getToken = function(){
     })
     }();
 
-    //Using access token in getdata.js
+//Get the data sing access token and users search input
 function searchQuery(searchValue, token) {
-
-    //   const log = document.getElementById('log');
-    //   form.addEventListener('submit', logSubmit);
 
     let searchBtn = document.getElementById('spotify-form');
 
@@ -56,7 +53,7 @@ function searchQuery(searchValue, token) {
             //change to a function for filterDuplicates, sortDatas
        
             //Filter out duplicates i.e tracks with the same artist
-
+           consolele.log(data) 
            const filteredData = filterDuplicates(data.tracks.items)
            sortByValue = document.getElementById('sortBy').value
            

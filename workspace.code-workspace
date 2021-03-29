@@ -1,13 +1,7 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../Phase 1/js-advanced-functions-functional-library-project"
-		}
-	],
-	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "remote-content-webpage"
-	}
+    "folders": [
+        {
+            "path": "."
+        }
+    ]
 }

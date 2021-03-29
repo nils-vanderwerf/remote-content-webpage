@@ -1,35 +1,35 @@
-# Spotify Accounts Authentication Examples
+* AUTHETICATION *
 
-This project contains basic demos showing the different OAuth 2.0 flows for [authenticating against the Spotify Web API](https://developer.spotify.com/web-api/authorization-guide/).
+Done in js/getData.js
+Register your application at https://developer.spotify.com/dashboard/login
+Use your own _clientID and _clientSecret
 
-These examples cover:
+Need to generate an accessToken to access Spotify Data by making a POST request to the API
 
-* Authorization Code flow
-* Client Credentials flow
-* Implicit Grant flow
+* Use the IIFE getToken() 
+* Endpoint https://accounts.spotify.com/api/token
+* Method POST
+* Config Object - 
+* headers need to be base 64 encoded
+* body needs to be set to 'grant_type=client_credentials'
 
-## Installation
+        {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/x-www-form-urlencoded', 
+            'Authorization' : 'Basic ' + btoa(_clientId + ':' + _clientSecret)
+        },
+        body: 'grant_type=client_credentials'
+    })
 
-These examples run on Node.js. On [its website](http://www.nodejs.org/download/) you can find instructions on how to install it. You can also follow [this gist](https://gist.github.com/isaacs/579814) for a quick and easy way to install Node.js and npm.
+    response - json object with data token
 
-Once installed, clone the repository and install its dependencies running:
+    * GETTING THE DATA *
 
-    $ npm install
-
-### Using your own credentials
-You will need to register your app and get your own credentials from the Spotify for Developers Dashboard.
-
-To do so, go to [your Spotify for Developers Dashboard](https://beta.developer.spotify.com/dashboard) and create your application. For the examples, we registered these Redirect URIs:
-
-* http://localhost:8888 (needed for the implicit grant flow)
-* http://localhost:8888/callback
-
-Once you have created your app, replace the `client_id`, `redirect_uri` and `client_secret` in the examples with the ones you get from My Applications.
-
-## Running the examples
-In order to run the different examples, open the folder with the name of the flow you want to try out, and run its `app.js` file. For instance, to run the Authorization Code example do:
-
-    $ cd authorization_code
-    $ node app.js
-
-Then, open `http://localhost:8888` in a browser.
+    * Use function searchQuery()
+    * Parameters of the accessToken and users search value, to get to the search endpoint of the API
+    * searchQuery invoked by user clicking Submit or enter within the input field
+    * Query to the search enpoin of Spotify API, is the users input https://api.spotify.com/v1/search? 20 results retrieved
+    * In the header of the request - 'Authorization': 'Bearer ' + _accessToken
+    * When the callback returnds data, it is filtered using the filterDuplicates function - removes duplicates where the Artist and Track Name are the same.
+    * Checks the value the sortBy dropdown and runs the appropriate function
