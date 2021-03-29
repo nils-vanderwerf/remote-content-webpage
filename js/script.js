@@ -50,7 +50,7 @@ function generateRandomQuestion() {
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-    setInputText();
+    document.getElementById('question-box').innerHTML = `What is your ${generateRandomQuestion()}`
 })
 
 
@@ -85,11 +85,6 @@ function sortAlphabetically(a, b) {
         return (textTrackA < textTrackB) ? -1 : 1
     }
 }
-
-
-function setInputText() {
-    let inputText = document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`);
-}
   
 let searchBtn = document.getElementById('spotify-form')
 let searchField = document.getElementById('search')
@@ -109,7 +104,7 @@ searchBtn.addEventListener('submit', function(event){
 
     document.getElementById('search').value = ''
     
-    document.getElementById('search').setAttribute('placeholder', `What is your ${generateRandomQuestion()}`)
+    document.getElementById('question-box').innerHTML = `What is your ${generateRandomQuestion()}`
 });
 
 

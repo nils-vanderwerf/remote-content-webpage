@@ -58,19 +58,19 @@ function attachAlbumCover(album, link, cover, container) {
 }
 
 function attachTrack(track, container) {
-    let trackNameElement = document.createElement('h2')
+    let trackNameElement = document.createElement('h3')
     trackNameElement.innerHTML = track
     container.appendChild(trackNameElement)
 }
 
 function attachArtist(artist, container) {
-    let artistNameElement = document.createElement('h3')
+    let artistNameElement = document.createElement('h4')
     artistNameElement.innerHTML = artist
     container.appendChild(artistNameElement)
 }
 
 function attachAlbumName(album, container) {
-    let albumNameElement = document.createElement('h3')
+    let albumNameElement = document.createElement('h4')
     albumNameElement.innerHTML = album
     container.appendChild(albumNameElement)
 }

@@ -2,6 +2,7 @@
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Spotify Music Search</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/style.css" type="text/css">
 
        <script src="js/questions.js" type="text/javascript"></script>
@@ -16,6 +17,8 @@
       
     <h1>Let's Play a Little Game With The Spotify API</h1>
     <div id="container">
+
+      <h2 id="question-box"></h2>
       <form id='spotify-form'>
         <input id='search' type='text' name='search'>
         <input id="submit" type='submit' name='submit'/>
@@ -26,14 +29,28 @@
             <option id ="alphabet" value="alphabet">A-Z</option>
             <option id ="alphabet-backwards" value="alphabet-backwards">Z-A</option>
           </select>
-          
       </form>
+
         <div id="showing-results"><p></p></div>
         <ul id='results-list'>
         </ul>
-
+        <footer>
+          <section id="about">
+          <h2>About the Developer</h2>
+          <div class="links">
+              <span id="website"><i class="fa fa-globe"></i><a href="http://www.nils-vanderwerf.net" target="_blank">Website</a></span>
+              <span id="instagram"><i class="fa fa-instagram"></i><a href="https://www.instagram.com/nilsvdw_designs/" target="_blank">Instagram</a></span>
+              <span id="linkedin"><i class="fa fa-linkedin"></i><a href="https://www.linkedin.com/in/nilsvanderwerf/" target="_blank">LinkedIn</a></span>
+            </div>
+          </section>
+          <section id="contact">
+            <h2>Get In Touch</h2>
+            <div class="links">
+              <span id="email"><i class="fa fa-envelope"></i><a href="mailto:n.vanderw.92@gmail.com" target="_blank">Email Me</a></span>
+            </div>
+          </section>
+        </footer>
       </div>
-    </div>
     
     </body>
 </html>

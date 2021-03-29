@@ -5,39 +5,52 @@ body{
 }
 
 h1 {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
     padding: 1em;
     text-align: center;
 }
-h1, h2 {
-    
+h1, h3 {
     font-weight: 900;
 }
 
-h2, h3, h4 {
+h2, h3, h4, h5, p, a {
     color: #fff;
 }
-
-h3, h4, a {
+h2 {
+    font-weight: 1.5;
+}
+h4, h5, a {
     font-weight: 400;
 }
 
 h2 {
     font-size: 2rem;
-    margin-bottom: 0.75em;
+    text-align: center;
 }
+
 h3 {
     font-size: 1.5rem;
+    margin: 0;
+    margin-bottom: 0.75em;
+    
+}
+
+h4 {
+    font-size: 1.25rem;
     margin: 0;
     line-height: 1.5;
 }
 
-p {
+p, a {
     font-size: 1.25rem;
 }
 
+a {
+    text-decoration: none;
+}
+
 em {
-    color: #fff;
+    color:#4EA5D9;
 }
 
 a:hover {
@@ -52,7 +65,7 @@ a:hover {
 #spotify-form {
     display: grid;
     grid-template-columns: 12.5% 25% auto 25%;
-    grid-column-gap: 20px;
+    grid-column-gap: 30px;
     grid-row-gap: 45px;
     grid-template-areas:
     "search search search submit"
@@ -95,11 +108,10 @@ input{
     border: 3px solid #4EA5D9;    
     outline: none;
     text-align: center;
-    color: #4EA5D9; 
+    color: #fff; 
   }
-::placeholder {
-  color: #ccc; 
-}
+
+
   input[type=submit] {
     background-color:  #4EA5D9;
     color: #fff;
@@ -117,12 +129,12 @@ input{
 
 #results-list {
     display: grid;
-    padding: 45px;
+    padding: 45px 0;
     margin-top: 0;
-    grid-column-gap: 20px;
+    grid-column-gap: 45px;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     grid-row-gap: 90px;
-    grid-auto-rows: 1fr;
+    grid-auto-rows: auto;
     justify-content: space-between;
 }
 
@@ -137,10 +149,48 @@ li.track {
 li.track img {
     width: 100%;
     max-width: 100%;
+    margin-bottom: 30px;
 }
 
 audio {
     width: 100%;
+}
+
+footer {
+    border-top: solid 1px rgb(97, 96, 96);
+    padding: 45px;
+}
+
+footer section {
+    margin: auto;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+footer section div.links {
+    display: grid;
+    padding: 30px 0;
+}
+
+footer section#about div.links {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+#website {
+    grid-column-start: 2;
+}
+
+footer section h2 {
+    color: #4EA5D9;
+    margin: 0;
+}
+
+/*--FONT AWESOME--*/
+
+.fa {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-right: 10px; 
 }
 
 @media only screen and (max-width: 768px) {
