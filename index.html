@@ -14,11 +14,13 @@
     </head>
 
     <body>
-      
+    <header>
     <h1>Let's Play a Little Game With The Spotify API</h1>
-    <div id="container">
+    </header>
 
-      <h2 id="question-box"></h2>
+    <div id="container">
+    <h2 id="question-box"></h2>
+
       <form id='spotify-form'>
         <input id='search' type='text' name='search'>
         <input id="submit" type='submit' name='submit'/>
@@ -31,9 +33,13 @@
           </select>
       </form>
 
-        <div id="showing-results"><p></p></div>
+        <div id="showing-results">
+          <p></p>
+        </div>
+
         <ul id='results-list'>
         </ul>
+
         <footer>
           <section id="about">
           <h2>About the Developer</h2>
@@ -49,7 +55,12 @@
               <span id="email"><i class="fa fa-envelope"></i><a href="mailto:n.vanderw.92@gmail.com" target="_blank">Email Me</a></span>
             </div>
           </section>
+          <section id="attribution">
+            <p>Thanks to the data provided by <a href="Spotify"><img src="images/Spotify_Logo_White.png" alt="Spotify Logo"/></a>.</p>
+            <p>This includes the album covers, title, artist and track information.</p>
+          </section>
         </footer>
+
       </div>
     
     </body>
