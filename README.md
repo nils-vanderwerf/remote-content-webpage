@@ -26,7 +26,7 @@
 
 * QUESTIONS *
     * The list of questions is stored in the questions.js file
-    * The generateRandomQuestion() function  
+    * The generateRandomQuestion() function selects from a list of freshQuestions (a clone of the original questions array) and then pushes it out so its not used again. When the list of freshQuestions reaches zero, it resets it to the original array.  
 * GETTING THE DATA *
 
     * Use function searchQuery()
