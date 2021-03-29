@@ -68,17 +68,18 @@ function searchQuery(searchValue, token) {
 
             else if (sortByValue === 'popularity') {
                 sortedData = filteredData
-                console.log('SortByValue is', sortByValue, 'Data is', sortedData)
                 sortedData = sortedData.sort(sortByPopularity)
                 populateList(sortedData);
             }
 
             else if (sortByValue === 'alphabet') {
+                sortedData = filteredData
                 sortedData = sortedData.sort(sortAlphabetically)
                 populateList(sortedData)
             }
     
             else if (sortByValue === 'alphabet-backwards') {
+                sortedData = filteredData
                 sortedData = sortedData.sort(sortAlphabetically)
                 sortedData.reverse()
                 populateList(sortedData)

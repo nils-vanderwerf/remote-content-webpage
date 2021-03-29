@@ -17,6 +17,17 @@ sortBy.addEventListener('change', function(){
             sortedData = sortedData.sort(sortByPopularity)
             populateList(sortedData)
         }
+
+        else if (sortByValue === 'alphabet') {
+            sortedData = sortedData.sort(sortAlphabetically)
+            populateList(sortedData)
+        }
+
+        else if (sortByValue === 'alphabet-backwards') {
+            sortedData = sortedData.sort(sortAlphabetically)
+            sortedData.reverse()
+            populateList(sortedData)
+        }
     }
  })
 
@@ -47,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function(){
 function sortByPopularity(a, b) {
     const itemA = a.popularity 
     const itemB = b.popularity 
-
     return itemB - itemA
 }
 
@@ -61,6 +71,19 @@ function sortByRelevance(results, input) {
     }
     return {...entry, points};
 }).sort((a,b) => b.points - a.points)
+}
+
+function sortAlphabetically(a, b) {
+    let textTrackA = a.name.toLowerCase()
+    let textTrackB = b.name.toLowerCase()
+    let textArtistA = a.artists[0]
+    let textArtistB = b.artists[0]
+
+    if (textTrackB - textTrackA === 0) {
+       return (textArtistA < textArtistB) ? -1 : 1
+    } else {
+        return (textTrackA < textTrackB) ? -1 : 1
+    }
 }
 
 
