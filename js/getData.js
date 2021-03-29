@@ -53,7 +53,7 @@ function searchQuery(searchValue, token) {
             //change to a function for filterDuplicates, sortDatas
        
             //Filter out duplicates i.e tracks with the same artist
-           consolele.log(data) 
+           console.log(data) 
            const filteredData = filterDuplicates(data.tracks.items)
            sortByValue = document.getElementById('sortBy').value
            
