@@ -1,7 +1,10 @@
 {
     "folders": [
         {
-            "path": "."
+            "path": "Phase 2/a-react-app-example"
+        },
+        {
+            "path": "Phase 2"
         }
     ]
 }

@@ -1,4 +1,3 @@
-//Seperate JS File
 class Track {
     constructor(thisTrack) {
         this.link = thisTrack.external_urls.spotify;
@@ -34,11 +33,24 @@ class Track {
         //Create and append artist name
         attachAlbumName(this.album, innerDiv)
 
-        //create an audio tag
+        //create an audio element
         attachAudioSample(this.audio, trackContainer)
+
+       //create a like button
+       createLikeButton(trackContainer)
+
     }
-    
 }
+
+function createLikeButton(container) {
+const heart = document.createElement('p')
+heart.classList = "heart"
+heart.innerHTML = emptyHeartText
+container.appendChild(heart)
+
+}
+
+//Liker event listener function is in ./script.js file
 
 
 //attaching the link and album cover is in same function, as the album cover requires the link
@@ -90,3 +102,5 @@ function attachAudioSample(audio, container) {
         container.appendChild(noAudioMsg)
     }
 }
+
+

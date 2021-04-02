@@ -51,37 +51,10 @@ function searchQuery(searchValue, token) {
         })
         .then(data => {  
             //change to a function for filterDuplicates, sortDatas
-       
             //Filter out duplicates i.e tracks with the same artist
            console.log(data) 
            const filteredData = filterDuplicates(data.tracks.items)
-           sortByValue = document.getElementById('sortBy').value
-           
-            
-            if (sortByValue === 'relevance') {
-                sortedData = sortByRelevance(data.tracks.items, searchValue)
-                populateList(sortedData);
-            } 
-
-            else if (sortByValue === 'popularity') {
-                sortedData = filteredData
-                sortedData = sortedData.sort(sortByPopularity)
-                populateList(sortedData);
-            }
-
-            else if (sortByValue === 'alphabet') {
-                sortedData = filteredData
-                sortedData = sortedData.sort(sortAlphabetically)
-                populateList(sortedData)
-            }
-    
-            else if (sortByValue === 'alphabet-backwards') {
-                sortedData = filteredData
-                sortedData = sortedData.sort(sortAlphabetically)
-                sortedData.reverse()
-                populateList(sortedData)
-            }
-
+           sortByPreference(filteredData, searchVal);
             })
 
         .catch(error => {

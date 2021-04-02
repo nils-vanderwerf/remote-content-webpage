@@ -8,6 +8,8 @@ let searchVal;
 let sortedData;
 let sortBy = document.getElementById('sortBy')
 
+let emptyHeartText = '<i class="fa fa-heart-o"></i> Like this song'
+let fullHeartText = '<i class="fa fa-heart"></i> Song liked!'
 
 document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('question-box').innerHTML = `What is your ${generateRandomQuestion()}`
@@ -65,33 +67,29 @@ function populateList(results) {
         let newTrack = new Track(track)
             newTrack.makeList();
     });
+
 }
 
+function likerFunction(event) {
+    let target = event.target
+    let targetParent = target.parentNode 
+    if (target.classList.contains( "fa-heart") ) {
+        targetParent.innerHTML = emptyHeartText
+        }
+    else if ( target.classList.contains( "fa-heart-o") ) {
+        targetParent.innerHTML = fullHeartText
+    }
+}
+
+//grab the parent element for event delegation, for the like button
+//like button not available on page load
+const likerTargetParent = document.getElementById("results-list")
+likerTargetParent.addEventListener('click', likerFunction)
 
 //Change event for the filtering selector
 sortBy.addEventListener('change', function(){
-    sortByValue = document.getElementById('sortBy').value
     if (sortedData !== undefined) {
-        document.getElementById("results-list").innerHTML = ""
-        if (sortByValue === 'relevance') {
-            sortedData = sortByRelevance(sortedData, searchVal)
-            populateList(sortedData)
-        }
-        else if (sortByValue === 'popularity') {
-            sortedData = sortedData.sort(sortByPopularity)
-            populateList(sortedData)
-        }
-
-        else if (sortByValue === 'alphabet') {
-            sortedData = sortedData.sort(sortAlphabetically)
-            populateList(sortedData)
-        }
-
-        else if (sortByValue === 'alphabet-backwards') {
-            sortedData = sortedData.sort(sortAlphabetically)
-            sortedData.reverse()
-            populateList(sortedData)
-        }
+        sortedData = sortByPreference(sortedData)
     }
  })
 
