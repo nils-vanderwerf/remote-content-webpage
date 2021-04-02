@@ -52,7 +52,6 @@ container.appendChild(heart)
 
 //Liker event listener function is in ./script.js file
 
-
 //attaching the link and album cover is in same function, as the album cover requires the link
 function attachAlbumCover(album, link, cover, container) {
     let thisLink = document.createElement('a')
